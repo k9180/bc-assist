@@ -2,31 +2,26 @@ package com.example.bcassist.demo.controller;
 
 import com.example.bcassist.demo.model.FAQ;
 import com.example.bcassist.demo.repository.FAQRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/faq")
+@CrossOrigin(origins = "*")  // Allow frontend to access this API
+@RequiredArgsConstructor  // Lombok auto-generates the constructor
 public class FAQController {
 
     private final FAQRepository faqRepository;
 
-    public FAQController(FAQRepository faqRepository) {
-        this.faqRepository = faqRepository;
-    }
-
     @GetMapping
-    public List<FAQ> getAllFaq(){
+    public List<FAQ> getAllFaqs() {
         return faqRepository.findAll();
     }
 
     @PostMapping
-    public FAQ createFaq(@RequestBody FAQ faq){
+    public FAQ createFaq(@RequestBody FAQ faq) {
         return faqRepository.save(faq);
     }
-
 }
-
-
